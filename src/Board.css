@@ -1,0 +1,10 @@
+.board {
+  position: relative;
+  border: 1px solid black;
+}
+
+.dead-message {
+  display: grid;
+  place-content: center;
+  height: 100%;
+}

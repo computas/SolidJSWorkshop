@@ -7,7 +7,8 @@ import GameConfig from './game-config';
 import { getFood, getHead } from './helpers/get-body-part';
 import { XMod, YMod } from './helpers/position-map';
 
-import './Board.module.css';
+import './Board.css';
+import { isCollisionWithBody, isOutOfBounds } from './helpers/collision';
 
 export default () => {
   const [speed, setSpeed] = createSignal(GameConfig.initSpeed);
@@ -50,16 +51,6 @@ export default () => {
     setIsDead(false);
   }
 
-  function isOutOfBounds(head: SnakeBodyPart) {
-    const isOutOfBoundsTopLeft = head.x < 0 || head.y < 0;
-    const isOutOfBoundsBottomRight = head.x >= GameConfig.max || head.y >= GameConfig.max;
-    return isOutOfBoundsTopLeft || isOutOfBoundsBottomRight;
-  }
-
-  function isCollisionWithBody(head: SnakeBodyPart, body: SnakeBodyPart[]) {
-    return body.some((part) => part !== head && part.x === head.x && part.y === head.y);
-  }
-
   createRenderEffect(() => {
     document.body.addEventListener('keydown', onKeyDown);
   });
@@ -92,30 +83,29 @@ export default () => {
   }, speed());
 
   return (
-    <div
-      class="board"
-      style={{
-        position: 'relative',
-        border: '1px solid black',
-        height: `${GameConfig.max * 40}px`,
-        width: `${GameConfig.max * 40}px`,
-      }}
-    >
+    <>
+      <div
+        class="board"
+        style={{
+          height: `${GameConfig.max * 40}px`,
+          width: `${GameConfig.max * 40}px`,
+        }}
+      >
+        <Show
+          when={!isDead()}
+          fallback={
+            <div class="dead-message">
+              <p>Omg you died!</p>
+              <button onClick={reset}>Reset</button>
+            </div>
+          }
+        >
+          <Body bodyParts={bodyParts()} />
+          <Food pos={food()} />
+        </Show>
+      </div>
       <div>Score {score()}</div>
       <div>Speed {speed()}</div>
-
-      <Show
-        when={!isDead()}
-        fallback={
-          <>
-            <p>Omg you died!</p>
-            <button onClick={reset}>Reset</button>
-          </>
-        }
-      >
-        <Body bodyParts={bodyParts()} />
-        <Food pos={food()} />
-      </Show>
-    </div>
+    </>
   );
 };
