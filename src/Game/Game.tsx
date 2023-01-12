@@ -5,18 +5,19 @@ import { isFoodCollisionWithBody, isCollision } from '../helpers/collision';
 import { getRandomFood, getHead } from '../helpers/get-body-part';
 import { XMod, YMod } from '../helpers/position-map';
 import { SnakeBodyPart } from '../types/snake-body-part';
+import DeadMessage from './DeadMessage';
 
 import './Game.css';
 
 export default () => {
   const [bodyParts, setBodyParts] = createSignal(GameConfig.initSnake);
   const [snakeLength, setSnakeLength] = createSignal(GameConfig.initSnake.length);
-  const [direction, setDirection] = createSignal('right');
+  const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
   const [score, setScore] = createSignal(0);
   const [isDead, setIsDead] = createSignal(false);
   const [food, setFood] = createSignal(getRandomFood());
 
-  function setOppositeDirection(event: KeyboardEvent) {
+  function setAllowedDirection(event: KeyboardEvent) {
     const dir = direction();
     if (event.key === 'ArrowRight' && dir !== 'left') setDirection('right');
     if (event.key === 'ArrowLeft' && dir !== 'right') setDirection('left');
@@ -60,7 +61,7 @@ export default () => {
   setInterval(() => setBodyParts(getNewBodyParts()), GameConfig.initSpeed);
 
   createRenderEffect(() => {
-    document.body.addEventListener('keydown', setOppositeDirection);
+    document.body.addEventListener('keydown', setAllowedDirection);
   });
 
   createEffect(() => {
@@ -85,15 +86,7 @@ export default () => {
     <>
       <div>Score {score()}</div>
       <div class="container">
-        <Show
-          when={!isDead()}
-          fallback={
-            <div class="dead-message">
-              <p>Omg you died!</p>
-              <button onClick={reset}>Reset</button>
-            </div>
-          }
-        >
+        <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
           <Grid snake={bodyParts()} food={food()} />
         </Show>
       </div>

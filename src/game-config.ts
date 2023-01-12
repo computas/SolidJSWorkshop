@@ -3,11 +3,9 @@ import { SnakeBodyPart } from './types/snake-body-part';
 type GameConfigType = {
   /** Object of the initial snake with its position and direction */
   initSnake: SnakeBodyPart[];
-  size: number;
-  max: number;
+  // How many cells per row the grid should have
+  gridSize: number;
   initSpeed: number;
-  speedIncrease: number;
-  speedModifier: number;
 };
 
 const GameConfig: GameConfigType = {
@@ -25,11 +23,8 @@ const GameConfig: GameConfigType = {
       id: '0',
     },
   ],
-  size: 15,
-  max: 15,
+  gridSize: 15,
   initSpeed: 200,
-  speedIncrease: 3,
-  speedModifier: 10,
 };
 
 export default GameConfig;

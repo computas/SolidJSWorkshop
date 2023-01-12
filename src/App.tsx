@@ -3,7 +3,7 @@ import Game from './Game/Game';
 
 function App() {
   return (
-    <div class="App">
+    <div class="app">
       <Game />
     </div>
   );

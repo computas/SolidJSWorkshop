@@ -26,7 +26,7 @@ export default (props: Props) => {
       {size.map((y) => (
         <>
           {size.map((x) => (
-            <Cell x={x} y={y} snake={props.snake} food={props.food}></Cell>
+            <Cell {...{ x, y, ...props }}></Cell>
           ))}
         </>
       ))}

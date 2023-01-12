@@ -1,7 +1,7 @@
 import './Food.css';
 
 const Food = () => {
-  const pixelGrid = Array.from(Array(6).keys());
+  const pixelGrid = Array.from(Array(5).keys());
 
   return (
     <div class="food">
