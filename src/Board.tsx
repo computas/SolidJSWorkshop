@@ -8,7 +8,12 @@ import { getRandomFood, getHead } from './helpers/get-body-part';
 import { XMod, YMod } from './helpers/position-map';
 
 import './Board.css';
-import { isCollisionWithBody, isOutOfBounds } from './helpers/collision';
+import {
+  isCollision,
+  isCollisionWithBody,
+  isFoodCollisionWithBody,
+  isOutOfBounds,
+} from './helpers/collision';
 
 export default () => {
   const [speed, setSpeed] = createSignal(GameConfig.initSpeed);
@@ -59,8 +64,7 @@ export default () => {
 
   createEffect(() => {
     const head = getHead(bodyParts());
-    const isCollision = isOutOfBounds(head) || isCollisionWithBody(head, bodyParts());
-    if (isCollision) {
+    if (isCollision(head, bodyParts())) {
       setIsDead(true);
     }
   });
@@ -73,11 +77,19 @@ export default () => {
       if (score() % GameConfig.speedIncrease === 0) {
         setSpeed(speed() - GameConfig.speedModifier);
       }
+      setNewRandomFood();
       setSnakeLength(snakeLength() + 1);
-      setFood(getRandomFood());
       setScore(score() + 1);
     }
   });
+
+  function setNewRandomFood() {
+    let food = getRandomFood();
+    while (isFoodCollisionWithBody(food, bodyParts())) {
+      food = getRandomFood();
+    }
+    setFood(food);
+  }
 
   // TODO: Need to set new interval on speedChange
   setInterval(() => {
