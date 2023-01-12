@@ -1,0 +1,37 @@
+.part {
+  width: 40px;
+  height: 40px;
+  background-color: green;
+  border: 1px solid black;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.part.right {
+  rotate: 90deg;
+}
+
+.part.left {
+  rotate: -90deg;
+}
+
+.part.up {
+  rotate: 0deg;
+}
+
+.part.down {
+  rotate: 180deg;
+}
+
+.part .eye {
+  padding: 4px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: red;
+}
