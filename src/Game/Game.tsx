@@ -17,6 +17,26 @@ export default () => {
   const [isDead, setIsDead] = createSignal(false);
   const [food, setFood] = createSignal(getRandomFood());
 
+  setInterval(() => setBodyParts(getNewBodyParts()), GameConfig.initSpeed);
+
+  createRenderEffect(() => {
+    document.body.addEventListener('keydown', setAllowedDirection);
+  });
+
+  createEffect(() => {
+    if (isCollision(bodyParts())) {
+      setIsDead(true);
+    }
+  });
+
+  createEffect(() => {
+    if (isFoodCollision(bodyParts(), food())) {
+      setNewRandomFood();
+      setSnakeLength(snakeLength() + 1);
+      setScore(score() + 1);
+    }
+  });
+
   function setAllowedDirection(event: KeyboardEvent) {
     const dir = direction();
     if (event.key === 'ArrowRight' && dir !== 'left') setDirection('right');
@@ -57,26 +77,6 @@ export default () => {
     setIsDead(false);
     setScore(0);
   }
-
-  setInterval(() => setBodyParts(getNewBodyParts()), GameConfig.initSpeed);
-
-  createRenderEffect(() => {
-    document.body.addEventListener('keydown', setAllowedDirection);
-  });
-
-  createEffect(() => {
-    if (isCollision(bodyParts())) {
-      setIsDead(true);
-    }
-  });
-
-  createEffect(() => {
-    if (isFoodCollision(bodyParts(), food())) {
-      setNewRandomFood();
-      setSnakeLength(snakeLength() + 1);
-      setScore(score() + 1);
-    }
-  });
 
   return (
     <>
