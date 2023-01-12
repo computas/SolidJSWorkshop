@@ -1,5 +1,5 @@
 import GameConfig from '../game-config';
-import { FoodType } from '../types/food-type';
+import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
 import { getHead } from './get-body-part';
 
@@ -9,7 +9,7 @@ export function isOutOfBounds(head: SnakeBodyPart) {
   return isOutOfBoundsTopLeft || isOutOfBoundsBottomRight;
 }
 
-export function isFoodCollisionWithBody(food: FoodType, body: SnakeBodyPart[]) {
+export function isFoodCollisionWithBody(food: Pos, body: SnakeBodyPart[]) {
   return body.some((part) => part.x === food.x && part.y === food.y);
 }
 
@@ -22,7 +22,7 @@ export function isCollision(body: SnakeBodyPart[]) {
   return isOutOfBounds(head) || isHeadCollisionWithBody(head, body);
 }
 
-export function isFoodCollision(body: SnakeBodyPart[], food: FoodType) {
+export function isFoodCollision(body: SnakeBodyPart[], food: Pos) {
   const head = getHead(body);
   return head.x === food.x && head.y === food.y;
 }

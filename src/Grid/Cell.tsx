@@ -1,13 +1,13 @@
 import { Show } from 'solid-js';
 import BodyPart from '../BodyPart/BodyPart';
 import Food from '../Food/Food';
-import { FoodType } from '../types/food-type';
+import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
 
 type CellProps = {
   x: number;
   y: number;
-  food: FoodType;
+  food: Pos;
   snake: SnakeBodyPart[];
 };
 

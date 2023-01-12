@@ -1,14 +1,14 @@
 import { Show } from 'solid-js';
 import Food from '../Food/Food';
 import GameConfig from '../game-config';
-import { FoodType } from '../types/food-type';
+import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
 
 import './Grid.css';
 import Cell from './Cell';
 
 type Props = {
-  food: FoodType;
+  food: Pos;
   snake: SnakeBodyPart[];
 };
 

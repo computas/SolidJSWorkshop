@@ -1,12 +1,12 @@
 import GameConfig from '../game-config';
-import { FoodType } from '../types/food-type';
+import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-export function getRandomFood(): FoodType {
+export function getRandomFood(): Pos {
   return {
     x: getRandomInt(GameConfig.gridSize),
     y: getRandomInt(GameConfig.gridSize),
