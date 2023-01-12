@@ -87,7 +87,7 @@ export default () => {
   return (
     <div style={{ width: '1000px', height: '1000px' }}>
       <Show
-        when={true}
+        when={!isDead()}
         fallback={
           <div class="dead-message">
             <p>Omg you died!</p>

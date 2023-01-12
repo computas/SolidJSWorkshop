@@ -3,7 +3,13 @@ import { FoodType } from './types/food-type';
 
 const Food = () => {
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+      }}
+    >
       <img
         style={{
           width: '100%',

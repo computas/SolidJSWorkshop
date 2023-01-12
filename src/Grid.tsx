@@ -42,7 +42,13 @@ export default (props: Props) => {
   const size = Array.from(Array(GameConfig.size).keys());
 
   return (
-    <div class="grid" style={{ 'grid-template-columns': `'repeat(${GameConfig.size}, auto)'` }}>
+    <div
+      class="grid"
+      style={{
+        'grid-template-columns': `repeat(${GameConfig.size}, 1fr)`,
+        'grid-template-rows': `repeat(${GameConfig.size}, 1fr)`,
+      }}
+    >
       {size.map((y) => (
         <>
           {size.map((x) => (

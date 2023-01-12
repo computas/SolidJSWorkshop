@@ -18,6 +18,11 @@ const BodyPart: Component<Props> = (props) => {
         up: props.bodyPart.direction === 'up',
         down: props.bodyPart.direction === 'down',
       }}
+      style={{
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+      }}
     >
       <Show
         when={props.isHead}
