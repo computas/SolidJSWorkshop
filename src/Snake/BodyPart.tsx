@@ -1,7 +1,6 @@
 import { Component, Show } from 'solid-js';
-import { destructure } from 'solid-use';
+import { SnakeBodyPart } from '../types/snake-body-part';
 
-import { SnakeBodyPart } from '../Board';
 import './BodyPart.css';
 
 type Props = {

@@ -5,20 +5,9 @@ import Food from './Food';
 import { SnakeBodyPart } from './types/snake-body-part';
 import GameConfig from './game-config';
 import { getFood, getHead } from './helpers/get-body-part';
+import { XMod, YMod } from './helpers/position-map';
 
-const YMod = {
-  up: -1,
-  down: 1,
-  left: 0,
-  right: 0,
-};
-
-const XMod = {
-  up: 0,
-  down: 0,
-  left: -1,
-  right: 1,
-};
+import './Board.module.css';
 
 export default () => {
   const [speed, setSpeed] = createSignal(GameConfig.initSpeed);
@@ -104,6 +93,7 @@ export default () => {
 
   return (
     <div
+      class="board"
       style={{
         position: 'relative',
         border: '1px solid black',
@@ -113,6 +103,7 @@ export default () => {
     >
       <div>Score {score()}</div>
       <div>Speed {speed()}</div>
+
       <Show
         when={!isDead()}
         fallback={

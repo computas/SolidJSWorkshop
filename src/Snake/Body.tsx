@@ -1,6 +1,6 @@
 import { Component, createSignal, For, Index } from 'solid-js';
-import { SnakeBodyPart } from '../Board';
 import BodyPart from '../Snake/BodyPart';
+import { SnakeBodyPart } from '../types/snake-body-part';
 
 import './Body.css';
 
@@ -14,10 +14,7 @@ const Body: Component<Props> = (props) => {
       <Index each={props.bodyParts}>
         {(bodyPart, i) => (
           <li>
-            <BodyPart
-              isHead={i === props.bodyParts.length - 1}
-              bodyPart={bodyPart()}
-            />
+            <BodyPart isHead={i === props.bodyParts.length - 1} bodyPart={bodyPart()} />
           </li>
         )}
       </Index>
