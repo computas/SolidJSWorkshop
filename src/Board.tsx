@@ -9,6 +9,7 @@ import { XMod, YMod } from './helpers/position-map';
 import { isCollision, isFoodCollisionWithBody } from './helpers/collision';
 
 import './Board.css';
+import Grid from './Grid';
 
 export default () => {
   const [bodyParts, setBodyParts] = createSignal(GameConfig.initSnake);
@@ -84,28 +85,20 @@ export default () => {
   }
 
   return (
-    <>
-      <div
-        class="board"
-        style={{
-          height: `${GameConfig.max * 40}px`,
-          width: `${GameConfig.max * 40}px`,
-        }}
+    <div style={{ width: '1000px', height: '1000px' }}>
+      <Show
+        when={true}
+        fallback={
+          <div class="dead-message">
+            <p>Omg you died!</p>
+            <button onClick={reset}>Reset</button>
+          </div>
+        }
       >
-        <Show
-          when={!isDead()}
-          fallback={
-            <div class="dead-message">
-              <p>Omg you died!</p>
-              <button onClick={reset}>Reset</button>
-            </div>
-          }
-        >
-          <Body bodyParts={bodyParts()} />
-          <Food pos={food()} />
-        </Show>
-      </div>
+        <Grid snake={bodyParts()} food={food()} />
+      </Show>
+
       <div>Score {score()}</div>
-    </>
+    </div>
   );
 };

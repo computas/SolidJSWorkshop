@@ -18,34 +18,12 @@ const BodyPart: Component<Props> = (props) => {
         up: props.bodyPart.direction === 'up',
         down: props.bodyPart.direction === 'down',
       }}
-      style={{
-        left: props.bodyPart.x * 40 + 'px',
-        top: props.bodyPart.y * 40 + 'px',
-      }}
     >
       <Show
         when={props.isHead}
-        fallback={
-          <img
-            style={{
-              width: '100%',
-              height: '100%',
-              'object-fit': 'cover',
-            }}
-            src="https://d1hr6nb56yyl1.cloudfront.net/product-images/70660-560.jpg"
-          />
-        }
+        fallback={<img src="https://d1hr6nb56yyl1.cloudfront.net/product-images/70660-560.jpg" />}
       >
-        <img
-          style={{
-            width: '100%',
-            height: '100%',
-            'object-fit': 'cover',
-          }}
-          src="https://site.uit.no/acqva/wp-content/uploads/sites/262/2022/08/BildeMK.jpg"
-        />
-        {/*         <span class="eye"></span>
-        <span class="eye"></span> */}
+        <img src="https://site.uit.no/acqva/wp-content/uploads/sites/262/2022/08/BildeMK.jpg" />
       </Show>
     </div>
   );

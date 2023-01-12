@@ -1,8 +1,9 @@
-import { SnakeBodyPart } from "./types/snake-body-part";
+import { SnakeBodyPart } from './types/snake-body-part';
 
 type GameConfigType = {
   /** Object of the initial snake with its position and direction */
   initSnake: SnakeBodyPart[];
+  size: number;
   max: number;
   initSpeed: number;
   speedIncrease: number;
@@ -12,18 +13,19 @@ type GameConfigType = {
 const GameConfig: GameConfigType = {
   initSnake: [
     {
-      direction: "right",
+      direction: 'right',
       x: 0,
       y: 0,
-      id: "0",
+      id: '0',
     },
     {
-      direction: "right",
+      direction: 'right',
       x: 1,
       y: 0,
-      id: "0",
+      id: '0',
     },
   ],
+  size: 15,
   max: 15,
   initSpeed: 200,
   speedIncrease: 3,

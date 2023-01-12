@@ -1,5 +1,6 @@
 import './App.css';
 import Board from './Board';
+import Grid from './Grid';
 
 function App() {
   return (

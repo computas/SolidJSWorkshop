@@ -1,0 +1,10 @@
+.grid-cell {
+  background: pink;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(15, auto);
+  height: 100%;
+  width: 100%;
+}
