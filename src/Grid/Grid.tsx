@@ -13,14 +13,14 @@ type Props = {
 };
 
 export default (props: Props) => {
-  const size = Array.from(Array(GameConfig.size).keys());
+  const size = Array.from(Array(GameConfig.gridSize).keys());
 
   return (
     <div
       class="grid"
       style={{
-        'grid-template-columns': `repeat(${GameConfig.size}, minmax(0, 1fr))`,
-        'grid-template-rows': `repeat(${GameConfig.size}, minmax(0, 1fr))`,
+        'grid-template-columns': `repeat(${GameConfig.gridSize}, minmax(0, 1fr))`,
+        'grid-template-rows': `repeat(${GameConfig.gridSize}, minmax(0, 1fr))`,
       }}
     >
       {size.map((y) => (

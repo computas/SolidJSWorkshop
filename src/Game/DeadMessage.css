@@ -8,5 +8,5 @@
 }
 
 .reset-button:hover {
-  background: var(--snake);
+  background: var(--snake-color);
 }

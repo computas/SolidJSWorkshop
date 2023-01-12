@@ -85,6 +85,7 @@ export default () => {
   return (
     <>
       <div>Score {score()}</div>
+
       <div class="container">
         <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
           <Grid snake={bodyParts()} food={food()} />
