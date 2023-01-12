@@ -1,20 +1,17 @@
+import './Food.css';
+
 const Food = () => {
+  const pixelGrid = Array.from(Array(6).keys());
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        width: '100%',
-        height: '100%',
-      }}
-    >
-      <img
-        style={{
-          width: '100%',
-          height: '100%',
-          'object-fit': 'cover',
-        }}
-        src="https://d1hr6nb56yyl1.cloudfront.net/product-images/70660-560.jpg"
-      />
+    <div class="food">
+      {pixelGrid.map((x) => (
+        <>
+          {pixelGrid.map((y) => (
+            <div class="food-pixel"></div>
+          ))}
+        </>
+      ))}
     </div>
   );
 };

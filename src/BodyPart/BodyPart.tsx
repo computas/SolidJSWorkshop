@@ -23,14 +23,7 @@ const BodyPart: Component<Props> = (props) => {
         width: '100%',
         height: '100%',
       }}
-    >
-      <Show
-        when={props.isHead}
-        fallback={<img src="https://d1hr6nb56yyl1.cloudfront.net/product-images/70660-560.jpg" />}
-      >
-        <img src="https://site.uit.no/acqva/wp-content/uploads/sites/262/2022/08/BildeMK.jpg" />
-      </Show>
-    </div>
+    ></div>
   );
 };
 
