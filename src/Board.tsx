@@ -45,7 +45,7 @@ export default () => {
 
   function reset() {
     setSnakeLength(GameConfig.initSnake.length);
-    setDirection('right');
+    setDirection(getHead(GameConfig.initSnake).direction);
     setBodyParts(GameConfig.initSnake);
     setIsDead(false);
     setScore(0);
