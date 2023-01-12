@@ -6,7 +6,7 @@ function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-export function getFood(): FoodType {
+export function getRandomFood(): FoodType {
   return {
     x: getRandomInt(GameConfig.max),
     y: getRandomInt(GameConfig.max),

@@ -4,7 +4,7 @@ import Body from './Snake/Body';
 import Food from './Food';
 import { SnakeBodyPart } from './types/snake-body-part';
 import GameConfig from './game-config';
-import { getFood, getHead } from './helpers/get-body-part';
+import { getRandomFood, getHead } from './helpers/get-body-part';
 import { XMod, YMod } from './helpers/position-map';
 
 import './Board.css';
@@ -12,14 +12,14 @@ import { isCollisionWithBody, isOutOfBounds } from './helpers/collision';
 
 export default () => {
   const [speed, setSpeed] = createSignal(GameConfig.initSpeed);
-  const [score, setScore] = createSignal(0);
-  const [snakeLength, setSnakeLength] = createSignal(GameConfig.initSnake.length);
-  const [isDead, setIsDead] = createSignal(false);
   const [bodyParts, setBodyParts] = createSignal(GameConfig.initSnake);
-  const [food, setFood] = createSignal(getFood());
+  const [snakeLength, setSnakeLength] = createSignal(GameConfig.initSnake.length);
   const [direction, setDirection] = createSignal('right');
+  const [score, setScore] = createSignal(0);
+  const [isDead, setIsDead] = createSignal(false);
+  const [food, setFood] = createSignal(getRandomFood());
 
-  function onKeyDown(event: KeyboardEvent) {
+  function setOppositeDirection(event: KeyboardEvent) {
     const dir = direction();
     if (event.key === 'ArrowRight' && dir !== 'left') setDirection('right');
     if (event.key === 'ArrowLeft' && dir !== 'right') setDirection('left');
@@ -27,20 +27,20 @@ export default () => {
     if (event.key === 'ArrowDown' && dir !== 'up') setDirection('down');
   }
 
-  function getNewPart(part: SnakeBodyPart) {
+  function getNewBodyPart(part: SnakeBodyPart) {
     const x = part.x + XMod[direction()];
     const y = part.y + YMod[direction()];
     return { ...part, direction: direction(), x, y };
   }
 
-  function getNewParts(): SnakeBodyPart[] {
+  function getNewBodyParts(): SnakeBodyPart[] {
     const body = [...bodyParts()];
     const head = getHead(body);
     if (body.length === snakeLength()) {
       body.shift();
     }
 
-    body.push(getNewPart(head));
+    body.push(getNewBodyPart(head));
     return body;
   }
 
@@ -49,10 +49,12 @@ export default () => {
     setDirection('right');
     setBodyParts(GameConfig.initSnake);
     setIsDead(false);
+    setScore(0);
+    setSpeed(GameConfig.initSpeed);
   }
 
   createRenderEffect(() => {
-    document.body.addEventListener('keydown', onKeyDown);
+    document.body.addEventListener('keydown', setOppositeDirection);
   });
 
   createEffect(() => {
@@ -72,14 +74,14 @@ export default () => {
         setSpeed(speed() - GameConfig.speedModifier);
       }
       setSnakeLength(snakeLength() + 1);
-      setFood(getFood());
+      setFood(getRandomFood());
       setScore(score() + 1);
     }
   });
 
   // TODO: Need to set new interval on speedChange
   setInterval(() => {
-    setBodyParts(getNewParts());
+    setBodyParts(getNewBodyParts());
   }, speed());
 
   return (
