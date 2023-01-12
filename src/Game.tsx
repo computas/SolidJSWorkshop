@@ -1,14 +1,12 @@
 import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
 
-import Body from './Snake/Body';
-import Food from './Food';
 import { SnakeBodyPart } from './types/snake-body-part';
 import GameConfig from './game-config';
 import { getRandomFood, getHead } from './helpers/get-body-part';
 import { XMod, YMod } from './helpers/position-map';
 import { isCollision, isFoodCollisionWithBody } from './helpers/collision';
 
-import './Board.css';
+import './Game.css';
 import Grid from './Grid';
 
 export default () => {
@@ -44,6 +42,14 @@ export default () => {
     return body;
   }
 
+  function setNewRandomFood() {
+    let food = getRandomFood();
+    while (isFoodCollisionWithBody(food, bodyParts())) {
+      food = getRandomFood();
+    }
+    setFood(food);
+  }
+
   function reset() {
     setSnakeLength(GameConfig.initSnake.length);
     setDirection(getHead(GameConfig.initSnake).direction);
@@ -76,29 +82,22 @@ export default () => {
     }
   });
 
-  function setNewRandomFood() {
-    let food = getRandomFood();
-    while (isFoodCollisionWithBody(food, bodyParts())) {
-      food = getRandomFood();
-    }
-    setFood(food);
-  }
-
   return (
-    <div style={{ width: '1000px', height: '1000px' }}>
-      <Show
-        when={!isDead()}
-        fallback={
-          <div class="dead-message">
-            <p>Omg you died!</p>
-            <button onClick={reset}>Reset</button>
-          </div>
-        }
-      >
-        <Grid snake={bodyParts()} food={food()} />
-      </Show>
-
+    <>
       <div>Score {score()}</div>
-    </div>
+      <div class="container">
+        <Show
+          when={!isDead()}
+          fallback={
+            <div class="dead-message">
+              <p>Omg you died!</p>
+              <button onClick={reset}>Reset</button>
+            </div>
+          }
+        >
+          <Grid snake={bodyParts()} food={food()} />
+        </Show>
+      </div>
+    </>
   );
 };
