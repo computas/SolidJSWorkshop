@@ -1,7 +1,7 @@
 import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
-import { isFoodCollisionWithBody, isCollision } from '../helpers/collision';
+import { isFoodCollisionWithBody, isCollision, isFoodCollision } from '../helpers/collision';
 import { getRandomFood, getHead } from '../helpers/get-body-part';
 import { XMod, YMod } from '../helpers/position-map';
 import { SnakeBodyPart } from '../types/snake-body-part';
@@ -65,17 +65,13 @@ export default () => {
   });
 
   createEffect(() => {
-    const head = getHead(bodyParts());
-    if (isCollision(head, bodyParts())) {
+    if (isCollision(bodyParts())) {
       setIsDead(true);
     }
   });
 
   createEffect(() => {
-    const head = getHead(bodyParts());
-    const eatFood = head.x === food().x && head.y === food().y;
-
-    if (eatFood) {
+    if (isFoodCollision(bodyParts(), food())) {
       setNewRandomFood();
       setSnakeLength(snakeLength() + 1);
       setScore(score() + 1);
