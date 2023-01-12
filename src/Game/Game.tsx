@@ -70,6 +70,7 @@ export default () => {
     setFood(food);
   }
 
+  // Could we move is dead out and destroy this components so that its state is
   function reset() {
     setSnakeLength(GameConfig.initSnake.length);
     setDirection(getHead(GameConfig.initSnake).direction);

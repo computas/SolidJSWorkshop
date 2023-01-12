@@ -8,8 +8,8 @@ function getRandomInt(max: number) {
 
 export function getRandomFood(): FoodType {
   return {
-    x: getRandomInt(GameConfig.max),
-    y: getRandomInt(GameConfig.max),
+    x: getRandomInt(GameConfig.gridSize),
+    y: getRandomInt(GameConfig.gridSize),
   };
 }
 
