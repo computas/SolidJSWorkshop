@@ -1,38 +1,27 @@
-import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
+import { createSignal, createEffect, Show, createRenderEffect } from "solid-js";
 
-import Body from './Snake/Body';
-import Food from './Food';
-
-export type SnakeBodyPart = {
-  direction: string;
-  x: number;
-  y: number;
-  id: string;
-};
+import Body from "./Snake/Body";
+import Food from "./Food";
+import { SnakeBodyPart } from "./types/snake-body-part";
+import GameConfig from "./game-config";
 
 export type FoodType = {
   x: number;
   y: number;
 };
 
-const MAX = 15;
-const INIT_LENGTH = 2;
-const INIT_SPEED = 200;
-const SPEED_INC = 3;
-const SPEED_MODIFIER = 10;
-
 const StartSnake: SnakeBodyPart[] = [
   {
-    direction: 'right',
+    direction: "right",
     x: 0,
     y: 0,
-    id: '0',
+    id: "0",
   },
   {
-    direction: 'right',
+    direction: "right",
     x: 1,
     y: 0,
-    id: '0',
+    id: "0",
   },
 ];
 
@@ -56,8 +45,8 @@ function getRandomInt(max: number) {
 
 function getFood(): FoodType {
   return {
-    x: getRandomInt(MAX),
-    y: getRandomInt(MAX),
+    x: getRandomInt(GameConfig.max),
+    y: getRandomInt(GameConfig.max),
   };
 }
 
@@ -66,20 +55,20 @@ function getHead(body: SnakeBodyPart[]): SnakeBodyPart {
 }
 
 export default () => {
-  const [speed, setSpeed] = createSignal(INIT_SPEED);
+  const [speed, setSpeed] = createSignal(GameConfig.initSpeed);
   const [score, setScore] = createSignal(0);
-  const [snakeLength, setSnakeLength] = createSignal(INIT_LENGTH);
+  const [snakeLength, setSnakeLength] = createSignal(GameConfig.initLength);
   const [isDead, setIsDead] = createSignal(false);
   const [bodyParts, setBodyParts] = createSignal(StartSnake);
   const [food, setFood] = createSignal(getFood());
-  const [direction, setDirection] = createSignal('right');
+  const [direction, setDirection] = createSignal("right");
 
   function onKeyDown(event: KeyboardEvent) {
     const dir = direction();
-    if (event.key === 'ArrowRight' && dir !== 'left') setDirection('right');
-    if (event.key === 'ArrowLeft' && dir !== 'right') setDirection('left');
-    if (event.key === 'ArrowUp' && dir !== 'down') setDirection('up');
-    if (event.key === 'ArrowDown' && dir !== 'up') setDirection('down');
+    if (event.key === "ArrowRight" && dir !== "left") setDirection("right");
+    if (event.key === "ArrowLeft" && dir !== "right") setDirection("left");
+    if (event.key === "ArrowUp" && dir !== "down") setDirection("up");
+    if (event.key === "ArrowDown" && dir !== "up") setDirection("down");
   }
 
   function getNewPart(part: SnakeBodyPart) {
@@ -100,15 +89,16 @@ export default () => {
   }
 
   function reset() {
-    setSnakeLength(INIT_LENGTH);
-    setDirection('right');
+    setSnakeLength(GameConfig.initLength);
+    setDirection("right");
     setBodyParts(StartSnake);
     setIsDead(false);
   }
 
   function isOutOfBounds(head: SnakeBodyPart) {
     const isOutOfBoundsTopLeft = head.x < 0 || head.y < 0;
-    const isOutOfBoundsBottomRight = head.x >= MAX || head.y >= MAX;
+    const isOutOfBoundsBottomRight =
+      head.x >= GameConfig.max || head.y >= GameConfig.max;
     return isOutOfBoundsTopLeft || isOutOfBoundsBottomRight;
   }
 
@@ -119,7 +109,7 @@ export default () => {
   }
 
   createRenderEffect(() => {
-    document.body.addEventListener('keydown', onKeyDown);
+    document.body.addEventListener("keydown", onKeyDown);
   });
 
   createEffect(() => {
@@ -136,8 +126,8 @@ export default () => {
     const eatFood = head.x === food().x && head.y === food().y;
 
     if (eatFood) {
-      if (score() % SPEED_INC === 0) {
-        setSpeed(speed() - SPEED_MODIFIER);
+      if (score() % GameConfig.speedIncrease === 0) {
+        setSpeed(speed() - GameConfig.speedModifier);
       }
       setSnakeLength(snakeLength() + 1);
       setFood(getFood());
@@ -153,10 +143,10 @@ export default () => {
   return (
     <div
       style={{
-        position: 'relative',
-        border: '1px solid black',
-        height: `${MAX * 40}px`,
-        width: `${MAX * 40}px`,
+        position: "relative",
+        border: "1px solid black",
+        height: `${GameConfig.max * 40}px`,
+        width: `${GameConfig.max * 40}px`,
       }}
     >
       <div>Score {score()}</div>
