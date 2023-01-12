@@ -6,17 +6,11 @@ import { SnakeBodyPart } from './types/snake-body-part';
 import GameConfig from './game-config';
 import { getRandomFood, getHead } from './helpers/get-body-part';
 import { XMod, YMod } from './helpers/position-map';
+import { isCollision, isFoodCollisionWithBody } from './helpers/collision';
 
 import './Board.css';
-import {
-  isCollision,
-  isCollisionWithBody,
-  isFoodCollisionWithBody,
-  isOutOfBounds,
-} from './helpers/collision';
 
 export default () => {
-  const [speed, setSpeed] = createSignal(GameConfig.initSpeed);
   const [bodyParts, setBodyParts] = createSignal(GameConfig.initSnake);
   const [snakeLength, setSnakeLength] = createSignal(GameConfig.initSnake.length);
   const [direction, setDirection] = createSignal('right');
@@ -55,8 +49,9 @@ export default () => {
     setBodyParts(GameConfig.initSnake);
     setIsDead(false);
     setScore(0);
-    setSpeed(GameConfig.initSpeed);
   }
+
+  setInterval(() => setBodyParts(getNewBodyParts()), GameConfig.initSpeed);
 
   createRenderEffect(() => {
     document.body.addEventListener('keydown', setOppositeDirection);
@@ -74,9 +69,6 @@ export default () => {
     const eatFood = head.x === food().x && head.y === food().y;
 
     if (eatFood) {
-      if (score() % GameConfig.speedIncrease === 0) {
-        setSpeed(speed() - GameConfig.speedModifier);
-      }
       setNewRandomFood();
       setSnakeLength(snakeLength() + 1);
       setScore(score() + 1);
@@ -90,11 +82,6 @@ export default () => {
     }
     setFood(food);
   }
-
-  // TODO: Need to set new interval on speedChange
-  setInterval(() => {
-    setBodyParts(getNewBodyParts());
-  }, speed());
 
   return (
     <>
@@ -119,7 +106,6 @@ export default () => {
         </Show>
       </div>
       <div>Score {score()}</div>
-      <div>Speed {speed()}</div>
     </>
   );
 };
