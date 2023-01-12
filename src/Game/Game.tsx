@@ -1,13 +1,12 @@
 import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
-
-import { SnakeBodyPart } from './types/snake-body-part';
-import GameConfig from './game-config';
-import { getRandomFood, getHead } from './helpers/get-body-part';
-import { XMod, YMod } from './helpers/position-map';
-import { isCollision, isFoodCollisionWithBody } from './helpers/collision';
+import GameConfig from '../game-config';
+import Grid from '../Grid/Grid';
+import { isFoodCollisionWithBody, isCollision } from '../helpers/collision';
+import { getRandomFood, getHead } from '../helpers/get-body-part';
+import { XMod, YMod } from '../helpers/position-map';
+import { SnakeBodyPart } from '../types/snake-body-part';
 
 import './Game.css';
-import Grid from './Grid';
 
 export default () => {
   const [bodyParts, setBodyParts] = createSignal(GameConfig.initSnake);

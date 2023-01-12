@@ -1,6 +1,3 @@
-import { Component } from 'solid-js';
-import { FoodType } from './types/food-type';
-
 const Food = () => {
   return (
     <div
