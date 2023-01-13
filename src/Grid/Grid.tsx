@@ -1,5 +1,3 @@
-import { Show } from 'solid-js';
-import Food from '../Food/Food';
 import GameConfig from '../game-config';
 import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
