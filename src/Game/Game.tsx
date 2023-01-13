@@ -22,7 +22,7 @@ export default () => {
   setInterval(() => setBodyParts(getNewBodyParts()), GameConfig.initSpeed);
 
   createRenderEffect(() => {
-    document.body.addEventListener('keydown', setAllowedDirection);
+    document.body.addEventListener('keydown', (event) => setAllowedDirection(event.key));
   });
 
   createEffect(() => {
@@ -39,12 +39,12 @@ export default () => {
     }
   });
 
-  function setAllowedDirection(event: KeyboardEvent) {
+  function setAllowedDirection(key: string) {
     const dir = direction();
-    if (event.key === 'ArrowRight' && dir !== 'left') setDirection('right');
-    if (event.key === 'ArrowLeft' && dir !== 'right') setDirection('left');
-    if (event.key === 'ArrowUp' && dir !== 'down') setDirection('up');
-    if (event.key === 'ArrowDown' && dir !== 'up') setDirection('down');
+    if (key === 'ArrowRight' && dir !== 'left') setDirection('right');
+    if (key === 'ArrowLeft' && dir !== 'right') setDirection('left');
+    if (key === 'ArrowUp' && dir !== 'down') setDirection('up');
+    if (key === 'ArrowDown' && dir !== 'up') setDirection('down');
   }
 
   function getNewBodyPart(part: SnakeBodyPart) {
@@ -83,8 +83,8 @@ export default () => {
 
   return (
     <>
-      <Nokia>
-        <div>Score {score()}</div>
+      <Nokia resetClicked={reset} directionClicked={setAllowedDirection}>
+        <div class="score-title">Score {score()}</div>
 
         <div class="game-container">
           <PixelOverlay />

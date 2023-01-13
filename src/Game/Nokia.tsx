@@ -1,7 +1,12 @@
-import { children } from 'solid-js';
+import { children, PropsWithChildren } from 'solid-js';
 import './Nokia.scss';
 
-const Nokia = (props) => {
+type Props = {
+  resetClicked: () => void;
+  directionClicked: (dir: string) => void;
+} & PropsWithChildren;
+
+const Nokia = (props: Props) => {
   const c = children(() => props.children);
 
   return (
@@ -17,11 +22,10 @@ const Nokia = (props) => {
               <div class="hole"></div>
             </div>
             <div class="logo">NOKIA</div>
-            <div class="screen-container">
-              <span>NOKIA 3310</span>
-              {c()}
-            </div>
-            <div class="bottom-oval">
+
+            <div class="screen-container">{c()}</div>
+
+            <div class="bottom-oval" onClick={props.resetClicked}>
               <div class="big button top"></div>
             </div>
           </div>
@@ -41,7 +45,7 @@ const Nokia = (props) => {
                 <span class="minitext compact">o_o</span>
               </div>
             </div>
-            <div class="button-key-container">
+            <div class="button-key-container" onClick={() => props.directionClicked('ArrowUp')}>
               <div class="button-key middle">
                 <span class="special">2</span>
                 <span class="minitext">abc</span>
@@ -53,7 +57,7 @@ const Nokia = (props) => {
                 <span class="minitext">def</span>
               </div>
             </div>
-            <div class="button-key-container">
+            <div class="button-key-container" onClick={() => props.directionClicked('ArrowLeft')}>
               <div class="button-key left">
                 <span class="special">4</span>
                 <span class="minitext">ghi</span>
@@ -65,7 +69,10 @@ const Nokia = (props) => {
                 <span class="minitext">jkl</span>
               </div>
             </div>
-            <div class="button-key-container invert">
+            <div
+              class="button-key-container invert"
+              onClick={() => props.directionClicked('ArrowRight')}
+            >
               <div class="button-key right">
                 <span class="special">6</span>
                 <span class="minitext">mno</span>
@@ -77,7 +84,7 @@ const Nokia = (props) => {
                 <span class="minitext">pqrs</span>
               </div>
             </div>
-            <div class="button-key-container">
+            <div class="button-key-container" onClick={() => props.directionClicked('ArrowDown')}>
               <div class="button-key middle">
                 <span class="special">8</span>
                 <span class="minitext">tuv</span>

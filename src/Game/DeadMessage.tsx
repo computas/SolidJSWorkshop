@@ -9,9 +9,9 @@ const DeadMessage: Component<Props> = ({ resetClicked }) => {
   return (
     <div class="dead-message">
       <p>Omg you died!</p>
-      <button class="reset-button" onClick={resetClicked}>
+      {/*       <button class="reset-button" onClick={resetClicked}>
         Reset
-      </button>
+      </button> */}
     </div>
   );
 };

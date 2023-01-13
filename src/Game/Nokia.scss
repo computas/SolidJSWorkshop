@@ -99,6 +99,7 @@ body.dark {
     animation: on 2.5s ease-in-out infinite, glow 2.5s ease-in-out infinite alternate;
 
     & div.screen-container {
+      position: relative;
       background: #88c792;
       filter: drop-shadow(0 0 6px #88c792);
 
@@ -160,6 +161,7 @@ body.dark {
 
     & .screen-container {
       display: flex;
+      position: relative;
       justify-content: center;
       align-items: center;
       background: #78a47f;
