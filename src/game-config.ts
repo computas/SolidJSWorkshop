@@ -24,7 +24,7 @@ const GameConfig: GameConfigType = {
     },
   ],
   gridSize: 15,
-  initSpeed: 200,
+  initSpeed: 300,
 };
 
 export default GameConfig;

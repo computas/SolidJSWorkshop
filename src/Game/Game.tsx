@@ -40,11 +40,11 @@ export default () => {
   });
 
   function setAllowedDirection(key: string) {
-    const dir = direction();
-    if (key === 'ArrowRight' && dir !== 'left') setDirection('right');
-    if (key === 'ArrowLeft' && dir !== 'right') setDirection('left');
-    if (key === 'ArrowUp' && dir !== 'down') setDirection('up');
-    if (key === 'ArrowDown' && dir !== 'up') setDirection('down');
+    const head = getHead(bodyParts());
+    if (key === 'ArrowRight' && head.direction !== 'left') setDirection('right');
+    if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
+    if (key === 'ArrowUp' && head.direction !== 'down') setDirection('up');
+    if (key === 'ArrowDown' && head.direction !== 'up') setDirection('down');
   }
 
   function getNewBodyPart(part: SnakeBodyPart) {
