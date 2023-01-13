@@ -1,6 +1,8 @@
-.overlay-container {
+.pixel-overlay-container {
   display: grid;
   gap: 1px;
+  top: 0;
+  left: 0;
   position: absolute;
   height: 100%;
   width: 100%;

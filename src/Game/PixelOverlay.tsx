@@ -1,5 +1,7 @@
 import GameConfig from '../game-config';
 
+import './PixelOverlay.css';
+
 const PixelOverlay = () => {
   const pixelDensity = 3;
   const pixelsPerRow = GameConfig.gridSize * pixelDensity;
@@ -7,6 +9,7 @@ const PixelOverlay = () => {
 
   return (
     <div
+      class="pixel-overlay-container"
       style={{
         'grid-template-columns': `repeat(${pixelsPerRow}, minmax(0, 1fr))`,
         'grid-template-rows': `repeat(${pixelsPerRow}, minmax(0, 1fr))`,
