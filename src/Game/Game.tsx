@@ -8,6 +8,7 @@ import { SnakeBodyPart } from '../types/snake-body-part';
 import DeadMessage from './DeadMessage';
 
 import './Game.css';
+import Nokia from './Nokia';
 import PixelOverlay from './PixelOverlay';
 
 export default () => {
@@ -82,15 +83,17 @@ export default () => {
 
   return (
     <>
-      <div>Score {score()}</div>
+      <Nokia>
+        <div>Score {score()}</div>
 
-      <div class="container">
-        <PixelOverlay />
+        <div class="game-container">
+          <PixelOverlay />
 
-        <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
-          <Grid snake={bodyParts()} food={food()} />
-        </Show>
-      </div>
+          <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
+            <Grid snake={bodyParts()} food={food()} />
+          </Show>
+        </div>
+      </Nokia>
     </>
   );
 };
