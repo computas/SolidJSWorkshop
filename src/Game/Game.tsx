@@ -19,7 +19,7 @@ export default () => {
   const [isDead, setIsDead] = createSignal(false);
   const [food, setFood] = createSignal(getRandomFood());
 
-  setInterval(() => setBodyParts(getNewBodyParts()), GameConfig.initSpeed);
+  setInterval(() => setBodyParts(getMovedSnake()), GameConfig.initSpeed);
 
   createRenderEffect(() => {
     document.body.addEventListener('keydown', (event) => setAllowedDirection(event.key));
@@ -47,20 +47,20 @@ export default () => {
     if (key === 'ArrowDown' && head.direction !== 'up') setDirection('down');
   }
 
-  function getNewBodyPart(part: SnakeBodyPart) {
+  function getMovedHead(part: SnakeBodyPart) {
     const x = part.x + XMod[direction()];
     const y = part.y + YMod[direction()];
     return { ...part, direction: direction(), x, y };
   }
 
-  function getNewBodyParts(): SnakeBodyPart[] {
+  function getMovedSnake(): SnakeBodyPart[] {
     const body = [...bodyParts()];
     const head = getHead(body);
     if (body.length === snakeLength()) {
       body.shift();
     }
 
-    body.push(getNewBodyPart(head));
+    body.push(getMovedHead(head));
     return body;
   }
 
