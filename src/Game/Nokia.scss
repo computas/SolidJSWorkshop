@@ -203,6 +203,11 @@ body.dark {
           transform: translateY(-4px);
           display: flex;
           justify-content: center;
+          cursor: pointer;
+
+          &:active {
+            box-shadow: 0 2px 0 inset #0004;
+          }
 
           &::before {
             content: '';
@@ -356,17 +361,11 @@ body.dark {
         position: relative;
         z-index: 0;
         user-select: none;
+        cursor: pointer;
 
         &:active {
-          cursor: pointer;
-          transform: translateY(1px);
-
-          &.middle {
-            transform: translateY(6px);
-          }
-
           &::before {
-            box-shadow: 0 2px 0 #0004;
+            box-shadow: inset 0 2px 0 #0004;
           }
         }
 
