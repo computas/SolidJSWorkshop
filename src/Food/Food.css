@@ -4,10 +4,6 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-template-rows: repeat(6, minmax(0, 1fr));
-
-  /*  box-shadow: 15px 0px var(--snake-color), 25px 0px var(--snake-color), 5px 10px var(--snake-color),
-    5px 20px var(--snake-color), 5px 30px var(--snake-color), 35px 10px var(--snake-color), 35px 20px var(--snake-color),
-    35px 30px var(--snake-color), 15px 40px var(--snake-color), 25px 40px var(--snake-color); */
 }
 
 .food-pixel {
