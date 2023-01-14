@@ -12,27 +12,28 @@ import Nokia from './Nokia';
 import PixelOverlay from './PixelOverlay';
 
 export default () => {
-  const [bodyParts, setBodyParts] = createSignal(GameConfig.initSnake);
+  const [snake, setSnake] = createSignal(GameConfig.initSnake);
   const [snakeLength, setSnakeLength] = createSignal(GameConfig.initSnake.length);
   const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
   const [score, setScore] = createSignal(0);
   const [isDead, setIsDead] = createSignal(false);
   const [food, setFood] = createSignal(getRandomFood());
 
-  setInterval(() => setBodyParts(getMovedSnake()), GameConfig.initSpeed);
+  setInterval(() => moveSnake(), GameConfig.initSpeed);
 
   createRenderEffect(() => {
     document.body.addEventListener('keydown', (event) => setAllowedDirection(event.key));
   });
 
+  // We could move all content of effects to setInterval
   createEffect(() => {
-    if (isCollision(bodyParts())) {
+    if (isCollision(snake())) {
       setIsDead(true);
     }
   });
 
   createEffect(() => {
-    if (isFoodCollision(bodyParts(), food())) {
+    if (isFoodCollision(snake(), food())) {
       setNewRandomFood();
       setSnakeLength(snakeLength() + 1);
       setScore(score() + 1);
@@ -40,7 +41,7 @@ export default () => {
   });
 
   function setAllowedDirection(key: string) {
-    const head = getHead(bodyParts());
+    const head = getHead(snake());
     if (key === 'ArrowRight' && head.direction !== 'left') setDirection('right');
     if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
     if (key === 'ArrowUp' && head.direction !== 'down') setDirection('up');
@@ -53,20 +54,20 @@ export default () => {
     return { ...part, direction: direction(), x, y };
   }
 
-  function getMovedSnake(): SnakeBodyPart[] {
-    const body = [...bodyParts()];
-    const head = getHead(body);
-    if (body.length === snakeLength()) {
-      body.shift();
+  function moveSnake(): void {
+    const snakeBody = [...snake()];
+    const head = getHead(snakeBody);
+    if (snakeBody.length === snakeLength()) {
+      snakeBody.shift();
     }
 
-    body.push(getMovedHead(head));
-    return body;
+    snakeBody.push(getMovedHead(head));
+    setSnake(snakeBody);
   }
 
   function setNewRandomFood() {
     let food = getRandomFood();
-    while (isFoodCollisionWithBody(food, bodyParts())) {
+    while (isFoodCollisionWithBody(food, snake())) {
       food = getRandomFood();
     }
     setFood(food);
@@ -76,7 +77,7 @@ export default () => {
   function reset() {
     setSnakeLength(GameConfig.initSnake.length);
     setDirection(getHead(GameConfig.initSnake).direction);
-    setBodyParts(GameConfig.initSnake);
+    setSnake(GameConfig.initSnake);
     setIsDead(false);
     setScore(0);
   }
@@ -90,7 +91,7 @@ export default () => {
           <PixelOverlay />
 
           <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
-            <Grid snake={bodyParts()} food={food()} />
+            <Grid snake={snake()} food={food()} />
           </Show>
         </div>
       </Nokia>
