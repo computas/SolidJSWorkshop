@@ -13,7 +13,7 @@ import PixelOverlay from './PixelOverlay';
 
 export default () => {
   const [snake, setSnake] = createSignal(GameConfig.initSnake);
-  const [snakeLength, setSnakeLength] = createSignal(GameConfig.initSnake.length);
+  const [didEat, setDidEat] = createSignal(false);
   const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
   const [score, setScore] = createSignal(0);
   const [isDead, setIsDead] = createSignal(false);
@@ -35,7 +35,7 @@ export default () => {
   createEffect(() => {
     if (isFoodCollision(snake(), food())) {
       setNewRandomFood();
-      setSnakeLength(snakeLength() + 1);
+      setDidEat(true);
       setScore(score() + 1);
     }
   });
@@ -57,7 +57,9 @@ export default () => {
   function moveSnake(): void {
     const snakeBody = [...snake()];
     const head = getHead(snakeBody);
-    if (snakeBody.length === snakeLength()) {
+    if (didEat()) {
+      setDidEat(false);
+    } else {
       snakeBody.shift();
     }
 
@@ -75,9 +77,9 @@ export default () => {
 
   // Could we move is dead out and destroy this components so that its state is
   function reset() {
-    setSnakeLength(GameConfig.initSnake.length);
     setDirection(getHead(GameConfig.initSnake).direction);
     setSnake(GameConfig.initSnake);
+    setDidEat(false);
     setIsDead(false);
     setScore(0);
   }
