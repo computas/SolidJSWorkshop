@@ -93,7 +93,7 @@ export default () => {
     <Nokia resetClicked={reset} directionClicked={handleKey}>
       <div class="score-title">Score {score()}</div>
 
-      <div class="game-container">
+      <div class="board-container">
         <PixelOverlay />
 
         <Show when={!isDead()} fallback={<DeadMessage />}>
