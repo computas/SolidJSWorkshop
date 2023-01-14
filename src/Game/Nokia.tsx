@@ -1,4 +1,4 @@
-import { children, Component, ParentProps } from 'solid-js';
+import { children, Component, createRenderEffect, createSignal, ParentProps } from 'solid-js';
 import './Nokia.scss';
 
 type Props = {
@@ -7,7 +7,22 @@ type Props = {
 } & ParentProps;
 
 const Nokia: Component<Props> = (props) => {
+  const [downKey, setDownKey] = createSignal<string>();
   const c = children(() => props.children);
+
+  createRenderEffect(() => {
+    document.body.addEventListener('keydown', (event) => handleKey(event.key));
+  });
+
+  createRenderEffect(() => {
+    document.body.addEventListener('keyup', () => setDownKey(null));
+  });
+
+  function handleKey(key: string) {
+    if (['r', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(key)) {
+      setDownKey(key);
+    }
+  }
 
   return (
     <div class="container">
@@ -26,7 +41,7 @@ const Nokia: Component<Props> = (props) => {
             <div class="screen-container">{c()}</div>
 
             <div class="bottom-oval" onClick={props.resetClicked}>
-              <div class="big button top"></div>
+              <div class="big button top" classList={{ 'is-down': downKey() === 'r' }}></div>
             </div>
           </div>
           <div class="bottom-buttons">
@@ -46,7 +61,7 @@ const Nokia: Component<Props> = (props) => {
               </div>
             </div>
             <div class="button-key-container" onClick={() => props.directionClicked('ArrowUp')}>
-              <div class="button-key middle">
+              <div class="button-key middle" classList={{ 'is-down': downKey() === 'ArrowUp' }}>
                 <span class="special">2</span>
                 <span class="minitext">abc</span>
               </div>
@@ -58,7 +73,7 @@ const Nokia: Component<Props> = (props) => {
               </div>
             </div>
             <div class="button-key-container" onClick={() => props.directionClicked('ArrowLeft')}>
-              <div class="button-key left">
+              <div class="button-key left" classList={{ 'is-down': downKey() === 'ArrowLeft' }}>
                 <span class="special">4</span>
                 <span class="minitext">ghi</span>
               </div>
@@ -73,7 +88,7 @@ const Nokia: Component<Props> = (props) => {
               class="button-key-container invert"
               onClick={() => props.directionClicked('ArrowRight')}
             >
-              <div class="button-key right">
+              <div class="button-key right" classList={{ 'is-down': downKey() === 'ArrowRight' }}>
                 <span class="special">6</span>
                 <span class="minitext">mno</span>
               </div>
@@ -85,7 +100,7 @@ const Nokia: Component<Props> = (props) => {
               </div>
             </div>
             <div class="button-key-container" onClick={() => props.directionClicked('ArrowDown')}>
-              <div class="button-key middle">
+              <div class="button-key middle" classList={{ 'is-down': downKey() === 'ArrowDown' }}>
                 <span class="special">8</span>
                 <span class="minitext">tuv</span>
               </div>

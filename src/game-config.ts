@@ -11,18 +11,8 @@ type GameConfigType = {
 
 const GameConfig: GameConfigType = {
   initSnake: [
-    {
-      direction: 'right',
-      x: 0,
-      y: 0,
-      id: '0',
-    },
-    {
-      direction: 'right',
-      x: 1,
-      y: 0,
-      id: '0',
-    },
+    { x: 0, y: 0 },
+    { direction: 'right', x: 1, y: 0 },
   ],
   gridSize: 15,
   initSpeed: 150,

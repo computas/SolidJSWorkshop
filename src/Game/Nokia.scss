@@ -206,7 +206,8 @@ body.dark {
           justify-content: center;
           cursor: pointer;
 
-          &:active {
+          &:active,
+          &.is-down {
             box-shadow: 0 2px 0 inset #0004;
           }
 
@@ -364,10 +365,9 @@ body.dark {
         user-select: none;
         cursor: pointer;
 
-        &:active {
-          &::before {
-            box-shadow: inset 0 2px 0 #0004;
-          }
+        &:active:before,
+        &.is-down:before {
+          box-shadow: inset 0 2px 0 #0004;
         }
 
         &.left .minitext {

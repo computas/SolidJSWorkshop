@@ -1,6 +1,6 @@
 export type SnakeBodyPart = {
-  direction: string;
+  // Only needed for head
+  direction?: string;
   x: number;
   y: number;
-  id: string;
 };
