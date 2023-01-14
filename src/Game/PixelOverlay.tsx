@@ -1,8 +1,9 @@
+import { Component } from 'solid-js';
 import GameConfig from '../game-config';
 
 import './PixelOverlay.css';
 
-const PixelOverlay = () => {
+const PixelOverlay: Component = () => {
   const pixelDensity = 3;
   const pixelsPerRow = GameConfig.gridSize * pixelDensity;
   const pixelRow = Array.from(Array(pixelsPerRow).keys());

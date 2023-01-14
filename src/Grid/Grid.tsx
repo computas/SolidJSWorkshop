@@ -4,13 +4,14 @@ import { SnakeBodyPart } from '../types/snake-body-part';
 
 import './Grid.css';
 import Cell from './Cell';
+import { Component } from 'solid-js';
 
 type Props = {
   food: Pos;
   snake: SnakeBodyPart[];
 };
 
-export default (props: Props) => {
+const Grid: Component<Props> = (props) => {
   const size = Array.from(Array(GameConfig.gridSize).keys());
 
   return (
@@ -31,3 +32,5 @@ export default (props: Props) => {
     </div>
   );
 };
+
+export default Grid;

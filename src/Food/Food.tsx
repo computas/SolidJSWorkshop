@@ -1,3 +1,4 @@
+import { Component } from 'solid-js';
 import './Food.css';
 
 const transparentPixel = [
@@ -33,7 +34,7 @@ const transparentPixel = [
   '5 5',
 ];
 
-const Food = () => {
+const Food: Component = () => {
   const pixelGrid = Array.from(Array(6).keys());
 
   return (

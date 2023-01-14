@@ -1,17 +1,17 @@
-import { Show } from 'solid-js';
+import { Component, Show } from 'solid-js';
 import BodyPart from '../BodyPart/BodyPart';
 import Food from '../Food/Food';
 import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
 
-type CellProps = {
+type Props = {
   x: number;
   y: number;
   food: Pos;
   snake: SnakeBodyPart[];
 };
 
-const Cell = (props: CellProps) => {
+const Cell: Component<Props> = (props) => {
   function containsFood() {
     return props.food.x === props.x && props.food.y === props.y;
   }

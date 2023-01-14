@@ -1,12 +1,12 @@
-import { children, PropsWithChildren } from 'solid-js';
+import { children, Component, ParentProps } from 'solid-js';
 import './Nokia.scss';
 
 type Props = {
   resetClicked: () => void;
   directionClicked: (dir: string) => void;
-} & PropsWithChildren;
+} & ParentProps;
 
-const Nokia = (props: Props) => {
+const Nokia: Component<Props> = (props) => {
   const c = children(() => props.children);
 
   return (
