@@ -22,7 +22,7 @@ export default () => {
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
   createRenderEffect(() => {
-    document.body.addEventListener('keydown', (event) => setAllowedDirection(event.key));
+    document.body.addEventListener('keydown', (event) => handleKey(event.key));
   });
 
   // We could move all content of effects to setInterval
@@ -40,7 +40,9 @@ export default () => {
     }
   });
 
-  function setAllowedDirection(key: string) {
+  function handleKey(key: string) {
+    if (key === 'r' && isDead()) reset();
+
     const head = getHead(snake());
     if (key === 'ArrowRight' && head.direction !== 'left') setDirection('right');
     if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
@@ -85,18 +87,16 @@ export default () => {
   }
 
   return (
-    <>
-      <Nokia resetClicked={reset} directionClicked={setAllowedDirection}>
-        <div class="score-title">Score {score()}</div>
+    <Nokia resetClicked={reset} directionClicked={handleKey}>
+      <div class="score-title">Score {score()}</div>
 
-        <div class="game-container">
-          <PixelOverlay />
+      <div class="game-container">
+        <PixelOverlay />
 
-          <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
-            <Grid snake={snake()} food={food()} />
-          </Show>
-        </div>
-      </Nokia>
-    </>
+        <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
+          <Grid snake={snake()} food={food()} />
+        </Show>
+      </div>
+    </Nokia>
   );
 };
