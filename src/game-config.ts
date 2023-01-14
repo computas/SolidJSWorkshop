@@ -5,6 +5,7 @@ type GameConfigType = {
   initSnake: SnakeBodyPart[];
   // How many cells per row the grid should have
   gridSize: number;
+  // ms tick speed the game should run int
   initSpeed: number;
 };
 
