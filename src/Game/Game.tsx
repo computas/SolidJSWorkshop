@@ -1,3 +1,4 @@
+import { makeAudio } from '@solid-primitives/audio';
 import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
@@ -18,6 +19,7 @@ export default () => {
   const [score, setScore] = createSignal(0);
   const [isDead, setIsDead] = createSignal(false);
   const [food, setFood] = createSignal(getRandomFood());
+  const player = makeAudio('src/blip2.m4a');
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
@@ -36,6 +38,7 @@ export default () => {
     if (isFoodCollision(snake(), food())) {
       setNewRandomFood();
       setDidEat(true);
+      player.play();
       setScore(score() + 1);
     }
   });
@@ -93,7 +96,7 @@ export default () => {
       <div class="game-container">
         <PixelOverlay />
 
-        <Show when={!isDead()} fallback={<DeadMessage resetClicked={reset} />}>
+        <Show when={!isDead()} fallback={<DeadMessage />}>
           <Grid snake={snake()} food={food()} />
         </Show>
       </div>
