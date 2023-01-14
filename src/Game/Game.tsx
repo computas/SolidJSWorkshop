@@ -1,4 +1,4 @@
-import { createSignal, createRenderEffect } from 'solid-js';
+import { createSignal } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
 import { getHead } from '../helpers/get-body-part';
