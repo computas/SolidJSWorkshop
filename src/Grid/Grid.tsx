@@ -1,13 +1,10 @@
 import GameConfig from '../game-config';
-import { SnakeBodyPart } from '../types/snake-body-part';
 
 import './Grid.css';
 import Cell from './Cell';
 import { Component } from 'solid-js';
 
-type Props = {
-  snake: SnakeBodyPart[];
-};
+type Props = {};
 
 const Grid: Component<Props> = (props) => {
   const size = Array.from(Array(GameConfig.gridSize).keys());
