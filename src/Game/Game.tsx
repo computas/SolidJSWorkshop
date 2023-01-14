@@ -9,8 +9,6 @@ import { SnakeBodyPart } from '../types/snake-body-part';
 import DeadMessage from './DeadMessage';
 
 import './Game.css';
-import Nokia from './Nokia';
-import PixelOverlay from './PixelOverlay';
 
 export default () => {
   const [snake, setSnake] = createSignal(GameConfig.initSnake);
@@ -94,8 +92,6 @@ export default () => {
       <div class="score-title">Score {score()}</div>
 
       <div class="board-container">
-        <PixelOverlay />
-
         <Show when={!isDead()} fallback={<DeadMessage />}>
           <Grid snake={snake()} food={food()} />
         </Show>
