@@ -7,7 +7,6 @@ import Cell from './Cell';
 import { Component } from 'solid-js';
 
 type Props = {
-  food: Pos;
   snake: SnakeBodyPart[];
 };
 
