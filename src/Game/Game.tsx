@@ -3,7 +3,7 @@ import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
 import { isFoodCollisionWithBody, isCollision, isFoodCollision } from '../helpers/collision';
-import { getRandomFood, getHead } from '../helpers/get-body-part';
+import { getHead, getRandomPos } from '../helpers/get-body-part';
 import { XMod, YMod } from '../helpers/position-map';
 import { SnakeBodyPart } from '../types/snake-body-part';
 import DeadMessage from './DeadMessage';
@@ -18,7 +18,7 @@ export default () => {
   const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
   const [score, setScore] = createSignal(0);
   const [isDead, setIsDead] = createSignal(false);
-  const [food, setFood] = createSignal(getRandomFood());
+  const [food, setFood] = createSignal(getRandomPos());
   const player = makeAudio('src/blip2.m4a');
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
@@ -73,9 +73,9 @@ export default () => {
   }
 
   function setNewRandomFood() {
-    let food = getRandomFood();
+    let food = getRandomPos();
     while (isFoodCollisionWithBody(food, snake())) {
-      food = getRandomFood();
+      food = getRandomPos();
     }
     setFood(food);
   }
