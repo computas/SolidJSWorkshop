@@ -5,6 +5,8 @@
 }
 
 .game-container {
+  height: 40vh;
+  width: 40vh;
   background-color: var(--background-color);
 }
 

@@ -90,7 +90,7 @@ export default () => {
   }
 
   return (
-    <Nokia resetClicked={reset} directionClicked={handleKey}>
+    <div class="game-container">
       <div class="score-title">Score {score()}</div>
 
       <div class="board-container">
@@ -100,6 +100,6 @@ export default () => {
           <Grid snake={snake()} food={food()} />
         </Show>
       </div>
-    </Nokia>
+    </div>
   );
 };
