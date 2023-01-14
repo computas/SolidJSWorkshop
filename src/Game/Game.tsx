@@ -1,16 +1,13 @@
 import { makeAudio } from '@solid-primitives/audio';
-import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
+import { createSignal, createEffect, createRenderEffect } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
 import { isFoodCollisionWithBody, isCollision, isFoodCollision } from '../helpers/collision';
 import { getHead, getRandomPos } from '../helpers/get-body-part';
 import { XMod, YMod } from '../helpers/position-map';
 import { SnakeBodyPart } from '../types/snake-body-part';
-import DeadMessage from './DeadMessage';
 
 import './Game.css';
-import Nokia from './Nokia';
-import PixelOverlay from './PixelOverlay';
 
 export default () => {
   const [snake, setSnake] = createSignal(GameConfig.initSnake);
@@ -94,11 +91,7 @@ export default () => {
       <div class="score-title">Score {score()}</div>
 
       <div class="board-container">
-        <PixelOverlay />
-
-        <Show when={!isDead()} fallback={<DeadMessage />}>
-          <Grid snake={snake()} food={food()} />
-        </Show>
+        <Grid snake={snake()} food={food()} />
       </div>
     </div>
   );
