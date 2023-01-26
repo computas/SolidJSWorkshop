@@ -10,8 +10,11 @@ import './Game.css';
 export default () => {
   const [snake, setSnake] = createSignal(GameConfig.initSnake);
   const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
+  // Lag ny state for food
+  // Lag state for score
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
+
   document.body.addEventListener('keydown', (event) => handleKey(event.key));
 
   function handleKey(key: string) {
