@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
 import { getHead } from '../helpers/get-body-part';
@@ -16,6 +16,15 @@ export default () => {
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
   document.body.addEventListener('keydown', (event) => handleKey(event.key));
+
+  createEffect(() => {
+    /**
+     * Innhold i denne funksjonen vil kjøre hver gang noen av state variablene
+     * endrer seg.
+     *
+     * Her kan vi sjekke om den nye slangen har kollidert med mat
+     */
+  });
 
   function handleKey(key: string) {
     const head = getHead(snake());
