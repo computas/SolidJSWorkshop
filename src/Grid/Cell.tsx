@@ -6,6 +6,7 @@ type Props = {
 };
 
 const Cell: Component<Props> = (props) => {
+  // Slangekropp/hode vil dukke opp mellom divene
   return <div></div>;
 };
 
