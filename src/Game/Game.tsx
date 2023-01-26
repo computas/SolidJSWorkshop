@@ -19,6 +19,10 @@ export default () => {
     return { ...part, direction: direction(), x, y };
   }
 
+  function handleKey(key: string) {
+    // Funksjon som skal håndtere når en knapp blir trykket
+  }
+
   function moveSnake(): void {
     const snakeBody = [...snake()];
     const head = getHead(snakeBody);
