@@ -1,5 +1,5 @@
 import { makeAudio } from '@solid-primitives/audio';
-import { createSignal, createEffect, Show, createRenderEffect } from 'solid-js';
+import { createSignal, createEffect, Show } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
 import { isFoodCollisionWithBody, isCollision, isFoodCollision } from '../helpers/collision';
@@ -23,9 +23,7 @@ export default () => {
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
-  createRenderEffect(() => {
-    document.body.addEventListener('keydown', (event) => handleKey(event.key));
-  });
+  document.body.addEventListener('keydown', (event) => handleKey(event.key));
 
   // We could move all content of effects to setInterval
   createEffect(() => {
