@@ -1,4 +1,4 @@
-import { createSignal, createEffect, createRenderEffect } from 'solid-js';
+import { createSignal, createEffect } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
 import { isFoodCollisionWithBody, isFoodCollision } from '../helpers/collision';
@@ -17,9 +17,7 @@ export default () => {
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
-  createRenderEffect(() => {
-    document.body.addEventListener('keydown', (event) => handleKey(event.key));
-  });
+  document.body.addEventListener('keydown', (event) => handleKey(event.key));
 
   createEffect(() => {
     if (isFoodCollision(snake(), food())) {
