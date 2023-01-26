@@ -25,7 +25,6 @@ export default () => {
     document.body.addEventListener('keydown', (event) => handleKey(event.key));
   });
 
-  // We could move all content of effects to setInterval
   createEffect(() => {
     if (isCollision(snake())) {
       setIsDead(true);
@@ -78,7 +77,6 @@ export default () => {
     setFood(food);
   }
 
-  // Could we move is dead out and destroy this components so that its state is
   function reset() {
     setDirection(getHead(GameConfig.initSnake).direction);
     setSnake(GameConfig.initSnake);
