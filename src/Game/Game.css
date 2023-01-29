@@ -17,3 +17,8 @@
   box-sizing: border-box;
   padding: 10px;
 }
+#video {
+  width: 200px;
+  height: 163px;
+  object-fit: cover;
+}

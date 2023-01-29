@@ -15,7 +15,7 @@ const GameConfig: GameConfigType = {
     { direction: 'right', x: 1, y: 0 },
   ],
   gridSize: 15,
-  initSpeed: 150,
+  initSpeed: 350,
 };
 
 export default GameConfig;
