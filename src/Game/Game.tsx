@@ -12,6 +12,7 @@ export default () => {
   const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
   const [food, setFood] = createSignal(getRandomPos());
   const [didEat, setDidEat] = createSignal(false);
+  const [score, setScore] = createSignal(0);
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
@@ -21,6 +22,7 @@ export default () => {
     if (isFoodCollision(snake(), food())) {
       setNewRandomFood();
       setDidEat(true);
+      setScore(score() + 1);
     }
   });
 
@@ -62,6 +64,8 @@ export default () => {
 
   return (
     <div class="game-container">
+      <div class="score-title">Score {score()}</div>
+
       <div class="board-container">
         <Grid snake={snake()} />
       </div>
