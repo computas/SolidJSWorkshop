@@ -10,31 +10,18 @@ import './Game.css';
 export default () => {
   const [snake, setSnake] = createSignal(GameConfig.initSnake);
   const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
-  /* Oppgave 4.a:
-   * Lag setter og getter for food og sett start verdi til funksjonen getRandomPos();
-   * Send så inn food som argument i Grid komponenten vår
-   */
-
-  // Oppgave 4.c: Lag setter og getter for didEat og sett start verdi til false
+  const [food, setFood] = createSignal(getRandomPos());
+  const [didEat, setDidEat] = createSignal(false);
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
   document.body.addEventListener('keydown', ({ key }) => handleKey(key));
 
   createEffect(() => {
-    /* Oppgave 4.d:
-     * Nå mangler vi bare collision detection for
-     * slangehode og mat.
-     * Som vi husker vil koden i createEffect kjøre hver gang
-     * verdien er endret til noen av getterne som vi bruker her inne.
-     *
-     * Vi ønsker å sjekke if hjelpefunksjonen isFoodCollision med argumentene
-     * snake og food. Hvis denne er true, setter vi en ny verdi på food med
-     * funksjonen setNewRandomFood.
-     *
-     * Og for å signalisere at slangen skal bli lengre setter vi didEat
-     * til true.
-     */
+    if (isFoodCollision(snake(), food())) {
+      setNewRandomFood();
+      setDidEat(true);
+    }
   });
 
   function handleKey(key: string) {
@@ -49,14 +36,11 @@ export default () => {
     const snakeBody = [...snake()];
     const head = getHead(snakeBody);
 
-    /* Oppgave 4.c:
-     * Lag en if sjekk på didEat()
-     * Hvis denne er true setter vi den til false.
-     * Ellers så kaller vi på snakeBody.shift.
-     * Siden shift vil fjerne en bit på slangen vil vi
-     * på denne måten la slangen bli lengre hvis den har spist.
-     */
-    snakeBody.shift();
+    if (didEat()) {
+      setDidEat(false);
+    } else {
+      snakeBody.shift();
+    }
 
     snakeBody.push(getMovedHead(head));
     setSnake(snakeBody);
