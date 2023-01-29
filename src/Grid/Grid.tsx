@@ -63,8 +63,9 @@ const Cell: Component<CellProps> = (props) => {
         <BodyPart />
       </Show>
 
-      {/* Oppgave 4.a: Legg til en Show sjekk for Food på samme måte som BodyPart */}
-      <Food />
+      <Show when={containsFood()}>
+        <Food />
+      </Show>
     </div>
   );
 };

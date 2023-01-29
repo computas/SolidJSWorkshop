@@ -15,7 +15,9 @@ export default () => {
    * Send så inn food som argument i Grid komponenten vår
    */
 
-  // Oppgave 4.c: Lag setter og getter for didEat og sett start verdi til false
+  // Oppgave 4.b: Lag setter og getter for didEat og sett start verdi til false
+
+  // Oppgave 4.c Lag setter og getter for score og sett start verdi til 0
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
@@ -34,6 +36,8 @@ export default () => {
      *
      * Og for å signalisere at slangen skal bli lengre setter vi didEat
      * til true.
+     *
+     * Vi øker også å øke score med 1
      */
   });
 
@@ -49,7 +53,7 @@ export default () => {
     const snakeBody = [...snake()];
     const head = getHead(snakeBody);
 
-    /* Oppgave 4.c:
+    /* Oppgave 4.b:
      * Lag en if sjekk på didEat()
      * Hvis denne er true setter vi den til false.
      * Ellers så kaller vi på snakeBody.shift.
@@ -78,6 +82,8 @@ export default () => {
 
   return (
     <div class="game-container">
+      <div class="score-title">Score {score()}</div>
+
       <div class="board-container">
         <Grid snake={snake()} />
       </div>
