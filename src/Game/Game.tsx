@@ -1,7 +1,8 @@
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 import GameConfig from '../game-config';
 import Grid from '../Grid/Grid';
-import { getHead } from '../helpers/get-body-part';
+import { isFoodCollision, isFoodCollisionWithBody } from '../helpers/collision';
+import { getHead, getRandomPos } from '../helpers/get-body-part';
 import { XMod, YMod } from '../helpers/position-map';
 import { SnakeBodyPart } from '../types/snake-body-part';
 import './Game.css';
@@ -9,21 +10,35 @@ import './Game.css';
 export default () => {
   const [snake, setSnake] = createSignal(GameConfig.initSnake);
   const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
+  /* Oppgave 4.a:
+   * Lag setter og getter for food og sett start verdi til funksjonen getRandomPos();
+   * Send så inn food som argument i Grid komponenten vår
+   */
+
+  // Oppgave 4.c: Lag setter og getter for didEat og sett start verdi til false
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
-  // Oppgave 3.a Kall på handle key for when "keydown"
-  document.body.addEventListener();
+  document.body.addEventListener('keydown', ({ key }) => handleKey(key));
+
+  createEffect(() => {
+    /* Oppgave 4.d:
+     * Nå mangler vi bare collision detection for
+     * slangehode og mat.
+     * Som vi husker vil koden i createEffect kjøre hver gang
+     * verdien er endret til noen av getterne som vi bruker her inne.
+     *
+     * Vi ønsker å sjekke if hjelpefunksjonen isFoodCollision med argumentene
+     * snake og food. Hvis denne er true, setter vi en ny verdi på food med
+     * funksjonen setNewRandomFood.
+     *
+     * Og for å signalisere at slangen skal bli lengre setter vi didEat
+     * til true.
+     */
+  });
 
   function handleKey(key: string) {
     const head = getHead(snake());
-    /* Oppgave 3.b:
-     * Lag en if sjekk for hver av verdiene key kan ha: "ArrowRight" | "ArrowLeft" | "ArrowUp" | "ArrowDown".
-     * Husk at hvis slangen (hoded) allerede beveger seg i motsatt retning av key så er det ikke lovlig.
-     * Altså hvis key er ArrowRight og head.direction === "left" så skal ingenting skje.
-     *
-     * Lovlig verdier for direction er "left" | "right" | "up" | "down"
-     */
     if (key === 'ArrowRight' && head.direction !== 'left') setDirection('right');
     if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
     if (key === 'ArrowUp' && head.direction !== 'down') setDirection('up');
@@ -33,7 +48,16 @@ export default () => {
   function moveSnake(): void {
     const snakeBody = [...snake()];
     const head = getHead(snakeBody);
+
+    /* Oppgave 4.c:
+     * Lag en if sjekk på didEat()
+     * Hvis denne er true setter vi den til false.
+     * Ellers så kaller vi på snakeBody.shift.
+     * Siden shift vil fjerne en bit på slangen vil vi
+     * på denne måten la slangen bli lengre hvis den har spist.
+     */
     snakeBody.shift();
+
     snakeBody.push(getMovedHead(head));
     setSnake(snakeBody);
   }
@@ -42,6 +66,14 @@ export default () => {
     const x = part.x + XMod[direction()];
     const y = part.y + YMod[direction()];
     return { direction: direction(), x, y };
+  }
+
+  function setNewRandomFood() {
+    let food = getRandomPos();
+    while (isFoodCollisionWithBody(food, snake())) {
+      food = getRandomPos();
+    }
+    setFood(food);
   }
 
   return (

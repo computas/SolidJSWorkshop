@@ -4,11 +4,14 @@ import { SnakeBodyPart } from '../types/snake-body-part';
 import './Grid.css';
 import { Component, Show } from 'solid-js';
 import BodyPart from '../BodyPart/BodyPart';
+import { Pos } from '../types/pos';
+import Food from '../Food/Food';
 
 /**Grid */
 
 type GridProps = {
   snake: SnakeBodyPart[];
+  food: Pos;
 };
 
 const Grid: Component<GridProps> = (props) => {
@@ -26,7 +29,7 @@ const Grid: Component<GridProps> = (props) => {
       {cellIndexes.map((y) => (
         <>
           {cellIndexes.map((x) => (
-            <Cell x={x} y={y} snake={props.snake}></Cell>
+            <Cell x={x} y={y} snake={props.snake} food={food}></Cell>
           ))}
         </>
       ))}
@@ -42,9 +45,14 @@ type CellProps = {
   x: number;
   y: number;
   snake: SnakeBodyPart[];
+  food: Pos;
 };
 
 const Cell: Component<CellProps> = (props) => {
+  function containsFood() {
+    return props.food.x === props.x && props.food.y === props.y;
+  }
+
   function containsBodyPart() {
     return props.snake.find((part) => part.x === props.x && part.y === props.y);
   }
@@ -54,6 +62,9 @@ const Cell: Component<CellProps> = (props) => {
       <Show when={containsBodyPart()}>
         <BodyPart />
       </Show>
+
+      {/* Oppgave 4.a: Legg til en Show sjekk for Food på samme måte som BodyPart */}
+      <Food />
     </div>
   );
 };
