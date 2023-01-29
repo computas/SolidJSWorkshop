@@ -7,17 +7,10 @@ import { SnakeBodyPart } from '../types/snake-body-part';
 import './Game.css';
 
 export default () => {
-  /*
-   * Oppgave 2.a:
-   * Lag createSignals med getter og setter for "snake" og "direction".
-   * Startverdi skal komme fra GameConfig.
-   */
+  const [snake, setSnake] = createSignal(GameConfig.initSnake);
+  const [direction, setDirection] = createSignal(getHead(GameConfig.initSnake).direction);
 
-  /*
-   * Oppgave 2.b:
-   * Opprett en setInterval som kaller på funksjonen
-   * moveSnake og kjører på initSpeed fra GameConfig
-   */
+  setInterval(() => moveSnake(), GameConfig.initSpeed);
 
   function moveSnake(): void {
     const snakeBody = [...snake()];
@@ -36,8 +29,7 @@ export default () => {
   return (
     <div class="game-container">
       <div class="board-container">
-        {/* Oppgave 2.c: Send snake getter inn som props til grid */}
-        <Grid />
+        <Grid snake={snake()} />
       </div>
     </div>
   );

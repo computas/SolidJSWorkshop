@@ -1,5 +1,4 @@
 import GameConfig from '../game-config';
-import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
 
 import './Grid.css';
@@ -52,8 +51,9 @@ const Cell: Component<CellProps> = (props) => {
 
   return (
     <div>
-      {/*Oppgave 2.d: Wrap <BodyPart /> i Show og bruk containsBodyPart i when attribtuttet */}
-      <BodyPart />
+      <Show when={containsBodyPart()}>
+        <BodyPart />
+      </Show>
     </div>
   );
 };
