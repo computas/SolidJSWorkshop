@@ -12,6 +12,24 @@ export default () => {
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
+  // Oppgave 3.a Kall på handle key for when "keydown"
+  document.body.addEventListener();
+
+  function handleKey(key: string) {
+    const head = getHead(snake());
+    /* Oppgave 3.b:
+     * Lag en if sjekk for hver av verdiene key kan ha: "ArrowRight" | "ArrowLeft" | "ArrowUp" | "ArrowDown".
+     * Husk at hvis slangen (hoded) allerede beveger seg i motsatt retning av key så er det ikke lovlig.
+     * Altså hvis key er ArrowRight og head.direction === "left" så skal ingenting skje.
+     *
+     * Lovlig verdier for direction er "left" | "right" | "up" | "down"
+     */
+    if (key === 'ArrowRight' && head.direction !== 'left') setDirection('right');
+    if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
+    if (key === 'ArrowUp' && head.direction !== 'down') setDirection('up');
+    if (key === 'ArrowDown' && head.direction !== 'up') setDirection('down');
+  }
+
   function moveSnake(): void {
     const snakeBody = [...snake()];
     const head = getHead(snakeBody);
