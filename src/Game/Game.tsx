@@ -12,8 +12,7 @@ export default () => {
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
-  // Oppgave 3.a Kall på handle key for when "keydown"
-  document.body.addEventListener();
+  document.body.addEventListener('keydown', ({ key }) => handleKey(key));
 
   function handleKey(key: string) {
     const head = getHead(snake());
@@ -24,10 +23,6 @@ export default () => {
      *
      * Lovlig verdier for direction er "left" | "right" | "up" | "down"
      */
-    if (key === 'ArrowRight' && head.direction !== 'left') setDirection('right');
-    if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
-    if (key === 'ArrowUp' && head.direction !== 'down') setDirection('up');
-    if (key === 'ArrowDown' && head.direction !== 'up') setDirection('down');
   }
 
   function moveSnake(): void {
