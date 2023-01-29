@@ -3,12 +3,12 @@ import { Pos } from '../types/pos';
 import { SnakeBodyPart } from '../types/snake-body-part';
 
 import './Grid.css';
-import { Component } from 'solid-js';
+import { Component, Show } from 'solid-js';
+import BodyPart from '../BodyPart/BodyPart';
 
 /**Grid */
 
 type GridProps = {
-  food: Pos;
   snake: SnakeBodyPart[];
 };
 
@@ -27,7 +27,7 @@ const Grid: Component<GridProps> = (props) => {
       {cellIndexes.map((y) => (
         <>
           {cellIndexes.map((x) => (
-            <Cell {...{ x, y, ...props }}></Cell>
+            <Cell x={x} y={y} snake={props.snake}></Cell>
           ))}
         </>
       ))}
@@ -42,8 +42,18 @@ export default Grid;
 type CellProps = {
   x: number;
   y: number;
+  snake: SnakeBodyPart[];
 };
 
 const Cell: Component<CellProps> = (props) => {
-  return <div>cell</div>;
+  function containsBodyPart() {
+    return props.snake.find((part) => part.x === props.x && part.y === props.y);
+  }
+
+  return (
+    <div>
+      {/*Oppgave 2.d: Wrap <BodyPart /> i Show og bruk containsBodyPart i when attribtuttet */}
+      <BodyPart />
+    </div>
+  );
 };
