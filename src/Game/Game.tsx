@@ -13,10 +13,20 @@ export default () => {
   const [food, setFood] = createSignal(getRandomPos());
   const [didEat, setDidEat] = createSignal(false);
   const [score, setScore] = createSignal(0);
+  // Oppgave 5.a: Lag getter og setter for isDead.
 
   setInterval(() => moveSnake(), GameConfig.initSpeed);
 
   document.body.addEventListener('keydown', ({ key }) => handleKey(key));
+
+  createEffect(() => {
+    /* Oppgave 5.c
+     * Nå ønsker vi å sy sammen collision detection for
+     * at slangen kræsjer med noe og sette isDead til tru.
+     *
+     * Vi kan her benytte oss av hjelpefunksjonen isCollision
+     */
+  });
 
   createEffect(() => {
     if (isFoodCollision(snake(), food())) {
@@ -67,7 +77,13 @@ export default () => {
       <div class="score-title">Score {score()}</div>
 
       <div class="board-container">
-        <Grid snake={snake()} />
+        {/** Oppgave 5.b:
+         * Wrap Grid komponenten i en Show som vises basert på isDead.
+         *
+         * Vi ønsker nå også bruke en fallback (hvis when er false) som viser komponenten
+         * DeadMessage.
+         */}
+        <Grid snake={snake()} food={food()} />
       </div>
     </div>
   );
