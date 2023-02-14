@@ -42,7 +42,6 @@ export default () => {
     if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
     if (key === 'ArrowUp' && head.direction !== 'down') setDirection('up');
     if (key === 'ArrowDown' && head.direction !== 'up') setDirection('down');
-    if (key === 'r' && !isDead()) reset();
   }
 
   function moveSnake(): void {
