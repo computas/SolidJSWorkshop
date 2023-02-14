@@ -29,7 +29,7 @@ const Grid: Component<GridProps> = (props) => {
       {cellIndexes.map((y) => (
         <>
           {cellIndexes.map((x) => (
-            <Cell x={x} y={y} snake={props.snake} food={food}></Cell>
+            <Cell x={x} y={y} snake={props.snake} food={props.food}></Cell>
           ))}
         </>
       ))}
