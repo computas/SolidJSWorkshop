@@ -22,7 +22,7 @@ export default () => {
   createEffect(() => {
     /* Oppgave 5.c
      * Nå ønsker vi å sy sammen collision detection for
-     * at slangen kræsjer med noe og sette isDead til tru.
+     * at slangen kræsjer med noe og sette isDead til true.
      *
      * Vi kan her benytte oss av hjelpefunksjonen isCollision
      */
@@ -42,6 +42,7 @@ export default () => {
     if (key === 'ArrowLeft' && head.direction !== 'right') setDirection('left');
     if (key === 'ArrowUp' && head.direction !== 'down') setDirection('up');
     if (key === 'ArrowDown' && head.direction !== 'up') setDirection('down');
+    if (key === 'r' && !isDead()) reset();
   }
 
   function moveSnake(): void {
@@ -56,6 +57,13 @@ export default () => {
 
     snakeBody.push(getMovedHead(head));
     setSnake(snakeBody);
+  }
+
+  function reset() {
+    /** Oppgave 5.d:
+     * Reset all signals
+     * til sine initielle verdier
+     */
   }
 
   function getMovedHead(part: SnakeBodyPart) {
