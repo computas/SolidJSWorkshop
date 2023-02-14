@@ -30,8 +30,8 @@ export default () => {
      * Som vi husker vil koden i createEffect kjøre hver gang
      * verdien er endret til noen av getterne som vi bruker her inne.
      *
-     * Vi ønsker å sjekke if hjelpefunksjonen isFoodCollision med argumentene
-     * snake og food. Hvis denne er true, setter vi en ny verdi på food med
+     * Vi ønsker å sjekke hvis hjelpefunksjonen isFoodCollision med argumentene
+     * snake og food. Hvis denne er true, setter vi en ny verdi til food med
      * funksjonen setNewRandomFood.
      *
      * Og for å signalisere at slangen skal bli lengre setter vi didEat
