@@ -152,7 +152,7 @@ export default () => {
         <span>😀</span>
         <span></span>
 
-        <span>🥲</span>
+        <span>😢</span>
         <span></span>
         <span>😡</span>
 
