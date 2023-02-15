@@ -164,8 +164,6 @@ export default () => {
       <div class="game-container">
         <div class="score-title">Score {score()}</div>
         <div class="board-container">
-          <PixelOverlay />
-
           <Show when={!isDead()} fallback={<DeadMessage />}>
             <Grid snake={snake()} food={food()} />
           </Show>
