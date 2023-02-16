@@ -8,8 +8,8 @@ import { Component } from 'solid-js';
 /**Grid */
 
 type GridProps = {
-  food: Pos;
-  snake: SnakeBodyPart[];
+  food?: Pos;
+  snake?: SnakeBodyPart[];
 };
 
 const Grid: Component<GridProps> = (props) => {
@@ -45,5 +45,5 @@ type CellProps = {
 };
 
 const Cell: Component<CellProps> = (props) => {
-  return <div>cell</div>;
+  return <div></div>;
 };
